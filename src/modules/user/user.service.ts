@@ -11,5 +11,56 @@ const createUserCreateService = async (payload: IUser) => {
   );
   return result;
 };
+const getAllUserService = async () => {
+  const result = await pool.query(`
+      SELECT * FROM users  
+        `);
+  return result;
+};
 
-export const userService = { createUserCreateService };
+const getSingleUserService = async (id: string) => {
+  const result = await pool.query(
+    `
+      SELECT * FROM users WHERE id=$1  
+        `,
+    [id],
+  );
+  return result;
+};
+
+const updateUserService = async (payload: IUser, id: string) => {
+  const { name, password, role } = payload;
+
+  const result = await pool.query(
+    `
+    UPDATE users 
+    SET 
+    name=COALESCE($1,name),
+    password=COALESCE($2,password),
+    role=COALESCE($3,role)
+   
+    WHERE id=$4 RETURNING *
+    `,
+    [name, password, role, id],
+  );
+
+  return result;
+};
+
+const deleteUserService = async (id: string) => {
+  const result = await pool.query(
+    `
+    DELETE FROM users WHERE id=$1  
+      `,
+    [id],
+  );
+  return result;
+};
+
+export const userService = {
+  createUserCreateService,
+  getAllUserService,
+  getSingleUserService,
+  updateUserService,
+  deleteUserService,
+};
