@@ -25,13 +25,12 @@ export const initDB = async () => {
           CREATE TABLE IF NOT EXISTS issues(
           id SERIAL PRIMARY KEY,
           reporter_id INT UNIQUE REFERENCES users(id) ON DELETE CASCADE,
-          description TEXT,
+          title TEXT,
           type TEXT,
           status TEXT,
-          address TEXT,
-          phone varchar(20),  
-             created_at TIMESTAMP DEFAULT NOW(),
-        updated_at TIMESTAMP DEFAULT NOW()
+          description TEXT,
+          created_at TIMESTAMP DEFAULT NOW(),
+          updated_at TIMESTAMP DEFAULT NOW()
           )`);
     console.log("Database connected successfully!");
   } catch (error) {
