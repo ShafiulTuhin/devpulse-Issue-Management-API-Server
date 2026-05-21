@@ -1,25 +1,39 @@
 import { pool } from "../../db";
 import type { IIssue } from "./issue.interface";
 
-const createIssueService = async (payload: IIssue) => {
-  const { reporter_id, title, type, status, description } = payload;
+// const createIssueService = async (payload: IIssue) => {
+//   const { reporter_id, title, type, status, description } = payload;
 
-  const user = await pool.query(`SELECT * from users where id = $1`, [
-    reporter_id,
-  ]);
+//   const user = await pool.query(`SELECT * from users where id = $1`, [
+//     reporter_id,
+//   ]);
 
-  if (user.rows.length === 0) {
-    throw new Error("User not exists!");
-  }
+//   if (user.rows.length === 0) {
+//     throw new Error("User not exists!");
+//   }
+//   const result = await pool.query(
+//     `
+//         insert into issues( reporter_id,title, type, status, description)
+//         values($1, $2, $3, $4,$5) RETURNING *
+//         `,
+//     [reporter_id, title, type, status, description],
+//   );
+
+//   return result;
+// };
+const createIssueService = async (reporter_id: number, payload: IIssue) => {
+  const { title, type, description } = payload;
+
   const result = await pool.query(
-    ` 
-        insert into issues( reporter_id,title, type, status, description)
-        values($1, $2, $3, $4,$5) RETURNING *
-        `,
-    [reporter_id, title, type, status, description],
+    `
+    INSERT INTO issues (reporter_id, title, type, description)
+    VALUES ($1, $2, $3, $4)
+    RETURNING *
+    `,
+    [reporter_id, title, type, description],
   );
 
-  return result;
+  return result.rows[0];
 };
 
 const getAllIssuesService = async () => {

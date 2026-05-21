@@ -6,6 +6,7 @@ import express, {
 import { userRoute } from "./modules/user/user.route";
 import { issueRoute } from "./modules/issue/issue.route";
 import { authRoute } from "./modules/auth/auth.route";
+import logger from "./middleware/logger";
 
 // import { userProfile } from "./modules/profile/profile.route";
 // import { authRoute } from "./modules/auth/auth.route";
@@ -20,6 +21,8 @@ const app: Application = express();
 app.use(express.json());
 app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(logger);
 
 // app.use(logger);
 
