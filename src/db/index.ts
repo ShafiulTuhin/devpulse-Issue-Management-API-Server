@@ -1,5 +1,6 @@
 import { Pool } from "pg";
 import config from "../config";
+import bcrypt from "bcryptjs";
 
 // Connection Database
 export const pool = new Pool({
