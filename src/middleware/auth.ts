@@ -2,9 +2,11 @@ import type { NextFunction, Request, Response } from "express";
 import jwt, { type JwtPayload } from "jsonwebtoken";
 import config from "../config";
 import { pool } from "../db";
+import type { ROLES } from "../types";
 
-const auth = () => {
+const auth = (...roles: ROLES[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
+    console.log(roles);
     try {
       const token = req.headers.authorization;
 
@@ -34,12 +36,27 @@ const auth = () => {
       }
 
       req.user = decoded;
+      const user = userData.rows[0];
+
+      if (roles.length && !roles.includes(user.role)) {
+        return res.status(403).json({
+          success: false,
+          message: "Valid token but insufficient role/permissions",
+        });
+      }
+      console.log(user.role);
 
       // console.log(userData.rows[0]);
 
       next();
     } catch (error) {
-      next(error);
+      // next(error);
+      if (error) {
+        return res.status(403).json({
+          success: false,
+          message: "Forbidden",
+        });
+      }
     }
   };
 };

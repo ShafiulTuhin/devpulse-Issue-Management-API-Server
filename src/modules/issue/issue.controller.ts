@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 import { issueService } from "./issue.service";
 
 const createIssue = async (req: Request, res: Response) => {
-  console.log(req.user);
+  // console.log(req.user);
 
   const reporter_id = req.user.id;
   try {
@@ -62,29 +62,24 @@ const getSingleIssue = async (req: Request, res: Response) => {
 };
 
 const updateIssue = async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const id = req.params.id;
 
   try {
     const result = await issueService.updateIssueService(
       req.body,
-      id as string,
+      id,
+      req.user,
     );
-    if (result.rows.length === 0) {
-      res.status(404).json({
-        success: false,
-        message: "No issue found!",
-      });
-    }
+
     res.status(200).json({
       success: true,
       message: "Issue updated successfully",
-      data: result.rows,
+      data: result,
     });
   } catch (error: any) {
     res.status(500).json({
       success: false,
       message: error.message,
-      error: error,
     });
   }
 };

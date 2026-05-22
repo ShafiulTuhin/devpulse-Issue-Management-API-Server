@@ -3,9 +3,17 @@ import bcrypt from "bcryptjs";
 import type { ILogin, IUser } from "./auth.interface";
 import jwt from "jsonwebtoken";
 import config from "../../config";
+import type { ROLES } from "../../types";
+
+const allowedRoles: ROLES[] = ["contributor", "maintainer"];
 
 const registerUserService = async (payload: IUser) => {
   const { name, email, password, role } = payload;
+
+  // Runtime validation
+  if (role && !allowedRoles.includes(role)) {
+    throw new Error("Invalid role");
+  }
 
   const hashPassword = await bcrypt.hash(password, 10);
   const result = await pool.query(

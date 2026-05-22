@@ -1,26 +1,7 @@
+import type { JwtPayload } from "jsonwebtoken";
 import { pool } from "../../db";
 import type { IIssue } from "./issue.interface";
 
-// const createIssueService = async (payload: IIssue) => {
-//   const { reporter_id, title, type, status, description } = payload;
-
-//   const user = await pool.query(`SELECT * from users where id = $1`, [
-//     reporter_id,
-//   ]);
-
-//   if (user.rows.length === 0) {
-//     throw new Error("User not exists!");
-//   }
-//   const result = await pool.query(
-//     `
-//         insert into issues( reporter_id,title, type, status, description)
-//         values($1, $2, $3, $4,$5) RETURNING *
-//         `,
-//     [reporter_id, title, type, status, description],
-//   );
-
-//   return result;
-// };
 const createIssueService = async (reporter_id: number, payload: IIssue) => {
   const { title, type, description } = payload;
 
@@ -53,9 +34,38 @@ const getSingleIssueService = async (id: string) => {
   return result;
 };
 
-const updateIssueService = async (payload: IIssue, id: string) => {
+const updateIssueService = async (
+  payload: IIssue,
+  id: string,
+  user: JwtPayload,
+) => {
   const { title, type, status, description } = payload;
 
+  const issueData = await pool.query(
+    `
+    SELECT * FROM issues WHERE id=$1
+    `,
+    [id],
+  );
+
+  if (issueData.rows.length === 0) {
+    throw new Error("Issue not found");
+  }
+
+  const issue = issueData.rows[0];
+
+  // Set update rules for contributor
+  if (
+    user.role === "contributor" &&
+    Number(issue.reporter_id) !== Number(user.id)
+  ) {
+    throw new Error("You can only update your own issue");
+  }
+  if (user.role === "contributor" && issue.status !== "open") {
+    throw new Error("You only can update an 'Open issue' ");
+  }
+
+  // update issue
   const result = await pool.query(
     `
     UPDATE issues 
@@ -70,7 +80,7 @@ const updateIssueService = async (payload: IIssue, id: string) => {
     [title, type, status, description, id],
   );
 
-  return result;
+  return result.rows[0];
 };
 
 const deleteIssueService = async (id: string) => {
