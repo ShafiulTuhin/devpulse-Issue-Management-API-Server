@@ -382,3 +382,13 @@ Method -> PATCH - Time -> 1779444964302 - URL -> /api/issues/2
 Method -> GET - Time -> 1779446781875 - URL -> /api/issues/2
 
 Method -> GET - Time -> 1779446787474 - URL -> /api/issues
+
+Method -> POST - Time -> 1779448129058 - URL -> /api/auth/login
+
+Method -> PATCH - Time -> 1779448145400 - URL -> /api/issues/2
+
+Method -> POST - Time -> 1779448156055 - URL -> /api/issues
+
+Method -> GET - Time -> 1779448836169 - URL -> /
+
+Method -> GET - Time -> 1779448842494 - URL -> /api/issues
