@@ -1,12 +1,16 @@
 ##Project Name: DevPulse 🐞 Issue Tracker API
 A backend REST API built with **Node.js, Express, TypeScript, PostgreSQL**, and **JWT authentication** for managing issues with role-based access control (RBAC).
 
+## LIve Link:
+
+https://devpulse-issue-tracker.vercel.app/api/issues
+
 ## ALl Endpoints:
 
-http://localhost:5000/api/auth/signup
-http://localhost:5000/api/auth/login
-http://localhost:5000/api/issues (post/get)
-http://localhost:5000/api/issues/1 (single-issue/update/delete)
+http://devpulse-issue-tracker.vercel.app/api/auth/signup
+http://devpulse-issue-tracker.vercel.app/api/auth/login
+http://devpulse-issue-tracker.vercel.app/api/issues (post/get)
+http://devpulse-issue-tracker.vercel.app/api/issues/1 (single-issue/update/delete)
 
 ## 🚀 Features
 

@@ -52,6 +52,7 @@ const loginUserService = async (payload: ILogin) => {
   const accessToken = jwt.sign(jwtPayload, config.secret as string, {
     expiresIn: "1d",
   });
+
   return { token: accessToken, user };
 };
 

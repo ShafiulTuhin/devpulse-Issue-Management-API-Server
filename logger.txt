@@ -362,3 +362,23 @@ Method -> PATCH - Time -> 1779444020579 - URL -> /api/issues/
 Method -> PATCH - Time -> 1779444029445 - URL -> /api/issues/4
 
 Method -> POST - Time -> 1779444048505 - URL -> /api/issues
+
+Method -> PATCH - Time -> 1779444187535 - URL -> /api/issues/2
+
+Method -> POST - Time -> 1779444199836 - URL -> /api/auth/login
+
+Method -> PATCH - Time -> 1779444215267 - URL -> /api/issues/2
+
+Method -> GET - Time -> 1779444786482 - URL -> /
+
+Method -> GET - Time -> 1779444791746 - URL -> /api/issues
+
+Method -> GET - Time -> 1779444794573 - URL -> /favicon.ico
+
+Method -> GET - Time -> 1779444807133 - URL -> /api/issues/2
+
+Method -> PATCH - Time -> 1779444964302 - URL -> /api/issues/2
+
+Method -> GET - Time -> 1779446781875 - URL -> /api/issues/2
+
+Method -> GET - Time -> 1779446787474 - URL -> /api/issues

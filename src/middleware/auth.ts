@@ -6,7 +6,7 @@ import type { ROLES } from "../types";
 
 const auth = (...roles: ROLES[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
-    console.log(roles);
+    // console.log(roles);
     try {
       const token = req.headers.authorization;
 
@@ -44,9 +44,6 @@ const auth = (...roles: ROLES[]) => {
           message: "Valid token but insufficient role/permissions",
         });
       }
-      console.log(user.role);
-
-      // console.log(userData.rows[0]);
 
       next();
     } catch (error) {

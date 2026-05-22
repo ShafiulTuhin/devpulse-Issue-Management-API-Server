@@ -4,7 +4,7 @@ import { issueService } from "./issue.service";
 const createIssue = async (req: Request, res: Response) => {
   // console.log(req.user);
 
-  const reporter_id = req.user.id;
+  const reporter_id = (req as any).user.id;
   try {
     const result = await issueService.createIssueService(reporter_id, req.body);
     res.status(201).json({
@@ -62,13 +62,13 @@ const getSingleIssue = async (req: Request, res: Response) => {
 };
 
 const updateIssue = async (req: Request, res: Response) => {
-  const id = req.params.id;
+  const id = (req as any).req.params.id;
 
   try {
     const result = await issueService.updateIssueService(
       req.body,
       id,
-      req.user,
+      (req as any).req.user,
     );
 
     res.status(200).json({
