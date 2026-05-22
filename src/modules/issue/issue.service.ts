@@ -3,15 +3,15 @@ import { pool } from "../../db";
 import type { IIssue } from "./issue.interface";
 
 const createIssueService = async (reporter_id: number, payload: IIssue) => {
-  const { title, type, description } = payload;
+  const { title, type, description, status } = payload;
 
   const result = await pool.query(
     `
-    INSERT INTO issues (reporter_id, title, type, description)
-    VALUES ($1, $2, $3, $4)
+    INSERT INTO issues (reporter_id, title, type, description,status)
+    VALUES ($1, $2, $3, $4,$5)
     RETURNING *
     `,
-    [reporter_id, title, type, description],
+    [reporter_id, title, type, description, status],
   );
 
   return result.rows[0];
