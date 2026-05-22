@@ -11,6 +11,7 @@ const registerUser = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     res.status(500).json({
+      success: false,
       message: error.message,
       error: error,
     });
@@ -27,6 +28,7 @@ const loginUser = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     res.status(500).json({
+      success: false,
       message: error.message,
       error: error,
     });

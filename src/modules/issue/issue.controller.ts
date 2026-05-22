@@ -46,10 +46,12 @@ const getSingleIssue = async (req: Request, res: Response) => {
       res.status(404).json({
         success: false,
         message: "No issue found!",
+        data: null,
       });
     }
     res.status(200).json({
       success: true,
+
       data: result.rows[0],
     });
   } catch (error: any) {
