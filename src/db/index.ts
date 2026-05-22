@@ -23,14 +23,14 @@ export const initDB = async () => {
     await pool.query(`
           
           CREATE TABLE IF NOT EXISTS issues(
-          id SERIAL PRIMARY KEY,
-          reporter_id INT,
-          title TEXT CHECK (char_length(title) <= 150),
-          type TEXT,
-         description TEXT CHECK (char_length(description) >= 20),
-        status TEXT DEFAULT 'open',
-          created_at TIMESTAMP DEFAULT NOW(),
-          updated_at TIMESTAMP DEFAULT NOW()
+           id SERIAL PRIMARY KEY,
+  reporter_id INT,
+  title TEXT NOT NULL CHECK (char_length(title) <= 150),
+  type TEXT NOT NULL CHECK (type IN ('bug', 'feature_request')),
+  description TEXT NOT NULL CHECK (char_length(description) >= 20),
+  status TEXT DEFAULT 'open',
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
           )`);
     console.log("Database connected successfully!");
   } catch (error) {

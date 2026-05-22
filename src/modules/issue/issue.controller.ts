@@ -2,10 +2,13 @@ import type { Request, Response } from "express";
 import { issueService } from "./issue.service";
 
 const createIssue = async (req: Request, res: Response) => {
+  console.log(req.user);
+
   const reporter_id = req.user.id;
   try {
     const result = await issueService.createIssueService(reporter_id, req.body);
     res.status(201).json({
+      success: true,
       message: "Issue created successfully",
       data: result,
     });
@@ -21,7 +24,8 @@ const createIssue = async (req: Request, res: Response) => {
 const getAllIssues = async (req: Request, res: Response) => {
   try {
     const result = await issueService.getAllIssuesService();
-    res.status(201).json({
+    res.status(200).json({
+      success: true,
       message: "Issues retrieved successfully",
       data: result.rows,
     });
@@ -46,7 +50,6 @@ const getSingleIssue = async (req: Request, res: Response) => {
     }
     res.status(200).json({
       success: true,
-      message: "Issue retrieved  successfully",
       data: result.rows[0],
     });
   } catch (error: any) {
