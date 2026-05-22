@@ -4,6 +4,7 @@ import express, {
   type Response,
 } from "express";
 
+import cors from "cors";
 import { issueRoute } from "./modules/issue/issue.route";
 import { authRoute } from "./modules/auth/auth.route";
 import logger from "./middleware/logger";
@@ -14,6 +15,7 @@ const app: Application = express();
 app.use(express.json());
 app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 app.use(logger);
 

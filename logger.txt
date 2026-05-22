@@ -392,3 +392,21 @@ Method -> POST - Time -> 1779448156055 - URL -> /api/issues
 Method -> GET - Time -> 1779448836169 - URL -> /
 
 Method -> GET - Time -> 1779448842494 - URL -> /api/issues
+
+Method -> POST - Time -> 1779452452661 - URL -> /api/auth/login
+
+Method -> POST - Time -> 1779452598559 - URL -> /api/issues
+
+Method -> POST - Time -> 1779452688626 - URL -> /api/issues
+
+Method -> POST - Time -> 1779452701485 - URL -> /api/issues
+
+Method -> POST - Time -> 1779452707885 - URL -> /api/auth/login
+
+Method -> POST - Time -> 1779452718955 - URL -> /api/issues
+
+Method -> POST - Time -> 1779452770358 - URL -> /api/issues
+
+Method -> POST - Time -> 1779452790792 - URL -> /api/issues
+
+Method -> POST - Time -> 1779452806377 - URL -> /api/issues
