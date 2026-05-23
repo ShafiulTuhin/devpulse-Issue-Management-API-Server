@@ -21,19 +21,37 @@ const createIssue = async (req: Request, res: Response) => {
   }
 };
 
+// const getAllIssues = async (req: Request, res: Response) => {
+//   try {
+//     const result = await issueService.getAllIssuesService();
+//     res.status(200).json({
+//       success: true,
+//       message: "Issues retrieved successfully",
+//       data: result.rows,
+//     });
+//   } catch (error: any) {
+//     res.status(500).json({
+//       success: false,
+//       message: error.message,
+//       error: error,
+//     });
+//   }
+// };
 const getAllIssues = async (req: Request, res: Response) => {
   try {
-    const result = await issueService.getAllIssuesService();
+    const filters = req.query;
+
+    const result = await issueService.getAllIssuesService(filters);
+
     res.status(200).json({
       success: true,
-      message: "Issues retrieved successfully",
-      data: result.rows,
+      message: "Issues fetched successfully",
+      data: result,
     });
   } catch (error: any) {
     res.status(500).json({
       success: false,
       message: error.message,
-      error: error,
     });
   }
 };

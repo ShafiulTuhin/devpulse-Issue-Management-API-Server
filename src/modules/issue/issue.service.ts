@@ -17,11 +17,44 @@ const createIssueService = async (reporter_id: number, payload: IIssue) => {
   return result.rows[0];
 };
 
-const getAllIssuesService = async () => {
-  const result = await pool.query(`
-      SELECT * FROM issues  
-        `);
-  return result;
+// const getAllIssuesService = async () => {
+//   const result = await pool.query(`
+//       SELECT * FROM issues
+//         `);
+//   return result;
+// };
+
+const getAllIssuesService = async (filters: any) => {
+  let query = `SELECT * FROM issues`;
+  const values: any[] = [];
+  const conditions: string[] = [];
+
+  if (filters.type) {
+    values.push(filters.type);
+    conditions.push(`type = $${values.length}`);
+  }
+
+  if (filters.status) {
+    values.push(filters.status);
+    conditions.push(`status = $${values.length}`);
+  }
+
+  if (conditions.length > 0) {
+    query += ` WHERE ` + conditions.join(" AND ");
+  }
+
+  const sort = filters.sort || "newest";
+
+  if (sort === "newest") {
+    query += ` ORDER BY created_at DESC`;
+  } else if (sort === "oldest") {
+    query += ` ORDER BY created_at ASC`;
+  } else {
+    query += ` ORDER BY created_at DESC`;
+  }
+
+  const result = await pool.query(query, values);
+  return result.rows;
 };
 
 const getSingleIssueService = async (id: string) => {
